@@ -9,7 +9,7 @@ class Converter
 	class << self
 
 		# mdからwikiに変換する
-		def convert_markdown_to_wiki(markdown, wiki)
+		def convert_markdown_to_wiki(markdown, wiki, markdown_config = nil)
 
 			# markdownファイルの存在確認
 			unless File.exist?(markdown)
@@ -26,7 +26,7 @@ class Converter
 			# ファイル読み込み + 変換
 			new_text = ""
 			File.open(markdown, encoding: "utf-8").each do |line|
-				new_text += convert_line(line)
+				new_text += line.convert_markdown_to_wiki(markdown_config)
 			end
 
 			# ファイル書き込み
@@ -35,11 +35,6 @@ class Converter
 			}
 
 			#puts new_text
-		end
-
-		# 1行を変換する
-		def convert_line(line)
-			line.convert_markdown_to_wiki
 		end
 
 	end

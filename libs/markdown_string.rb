@@ -4,8 +4,12 @@
 class String
 
 	# Wikiに変換する
-	def convert_markdown_to_wiki
+	def convert_markdown_to_wiki(markdown_config = nil)
 
+		indent_char = nil
+		unless markdown_config.nil?
+			indent_char = markdown_config.get_indent_char
+		end
 		# 斜体
 		self.convert_italic
 		# 太字
@@ -15,9 +19,9 @@ class String
 		# 見出し
 		self.convert_heading
 		# 順序なしリスト
-		self.convert_unordered_list
+		self.convert_unordered_list(indent_char)
 		# 順序つきリスト
-		self.convert_ordered_list
+		self.convert_ordered_list(indent_char)
 
 		return self
 	end
