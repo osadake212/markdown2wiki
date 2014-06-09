@@ -29,6 +29,7 @@ class String
 	# 太字を変換する
 	def convert_strong
 		self.gsub!(/\*\*([^\*]+?)\*\*[^\*|$]/, '*\1*')
+		self.gsub!(/__([^_]+?)__[^_|$]/, '*\1*')
 		return self
 	end
 
