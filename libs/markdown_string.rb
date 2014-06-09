@@ -62,7 +62,8 @@ class String
 	def convert_unordered_list(space = nil)
 		space ||= '\t'
 
-		/(#{space}+\*)/ =~ self
+		pattern = /^(#{space}*\*)/
+		pattern =~ self
 
 		if $1.nil?
 			return self
@@ -73,7 +74,7 @@ class String
 			symbol += '*'
 		end
 
-		self.gsub!(/(#{space}+\*)/, symbol)
+		self.gsub!(pattern, symbol)
 		return self
 	end
 
@@ -81,7 +82,8 @@ class String
 	def convert_ordered_list(space = nil)
 		space ||= '\t'
 
-		/(#{space}+[0-9]+?\.)/ =~ self
+		pattern = /^(#{space}*[0-9]+?\.)/
+		pattern =~ self
 
 		if $1.nil?
 			return self
@@ -92,7 +94,7 @@ class String
 			symbol += '#'
 		end
 
-		self.gsub!(/(#{space}+[0-9]+?\.)/, symbol)
+		self.gsub!(pattern, symbol)
 		return self
 	end
 end
