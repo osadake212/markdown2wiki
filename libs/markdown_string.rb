@@ -22,6 +22,8 @@ class String
 		self.convert_unordered_list(indent_char)
 		# 順序つきリスト
 		self.convert_ordered_list(indent_char)
+		# リンク
+		self.convert_link
 
 		return self
 	end
@@ -95,6 +97,26 @@ class String
 		end
 
 		self.gsub!(pattern, symbol)
+		return self
+	end
+
+	# リンクを変換する
+	def convert_link
+		/\[(.+?)\]\((.+?)( "(.+)")?\)/ =~ self
+
+		if $1.nil?
+			return self
+		end
+	
+		title = ''
+
+		if !$4.nil?
+			title = '(' + $4 + ')'
+		end
+	
+		link = '"' + $1 + title + '":' + $2
+	
+		self.gsub!(/\[(.+?)\]\((.+?)( "(.+)")?\)/, link)
 		return self
 	end
 end
