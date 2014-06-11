@@ -29,19 +29,15 @@ class String
 	end
 
 	# 太字を変換する
-	def convert_strong(indent_char = nil)
-		indent_char ||= '\t'
-
-		self.gsub!(/[^#{indent_char}*?\* ]*?\*\*([^\*]+?)\*\*[^\*|$]/, '*\1*')
-		self.gsub!(/__([^_]+?)__[^_|$]/, '*\1*')
+	def convert_strong
+		self.gsub!(/\*\*((?!\s)[^\*]+?)\*\*(?=[^\*|$]{1})/, '*\1*')
+		self.gsub!(/__((?!\s)[^_]+?)__(?=[^_|$]{1})/, '*\1*')
 		return self
 	end
 
 	# 斜体を変換する
-	def convert_italic(indent_char = nil)
-		indent_char ||= '\t'
-
-		self.gsub!(/[^#{indent_char}*?\* ]*?\*([^\*]+?)\*[^\*|$]/, '_\1_')
+	def convert_italic
+		self.gsub!(/\*((?!\s)[^\*]+?)\*(?=[^\*|$]{1})/, '_\1_')
 		return self
 	end
 
